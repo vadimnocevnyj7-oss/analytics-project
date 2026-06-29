@@ -1,0 +1,31 @@
+WITH last_month AS (
+    SELECT DATE_TRUNC('month', MAX(session_date_time)) AS month
+    FROM sessions
+),
+weekday_stats AS (
+    SELECT
+        d.name,
+        EXTRACT(ISODOW FROM s.session_date_time) AS weekday_num,
+        TO_CHAR(s.session_date_time, 'FMDay') AS weekday_name,
+        COUNT(*) AS meetings_count
+    FROM sessions s
+    JOIN domain d
+        ON s.mentor_domain_id = d.id
+    JOIN last_month lm
+        ON DATE_TRUNC('month', s.session_date_time) = lm.month
+    GROUP BY d.name, weekday_num, weekday_name
+)
+SELECT
+    name AS "Тип направления",
+    TRIM(weekday_name) AS "День недели",
+    meetings_count AS "Количество встреч"
+FROM (
+    SELECT *,
+           RANK() OVER (
+               PARTITION BY name
+               ORDER BY meetings_count DESC
+           ) AS rnk
+    FROM weekday_stats
+) t
+WHERE rnk = 1
+ORDER BY name;
