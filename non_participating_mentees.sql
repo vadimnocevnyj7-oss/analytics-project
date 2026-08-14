@@ -1,3 +1,4 @@
+-- Менторы, которые ещё не участвовали ни в одной сессии
 SELECT
     COUNT(*) AS mentors_without_sessions
 FROM teachers t
@@ -7,6 +8,7 @@ WHERE t.id NOT IN (
     
 );
 
+-- Менти, которые ещё не участвовали ни в одной сессии
 SELECT
     COUNT(*) AS mentees_without_sessions
 FROM students s
