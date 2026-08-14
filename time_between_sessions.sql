@@ -1,3 +1,4 @@
+-- Среднее время между первой и второй успешной сессией ментора
 WITH mentor_sessions AS (
     SELECT
         mentor_id,
@@ -23,7 +24,7 @@ SELECT
 FROM first_second
 WHERE second_session IS NOT NULL;
 
-
+-- Среднее время между первой и второй успешной сессией менти
 WITH mentee_sessions AS (
     SELECT
         mentee_id,
