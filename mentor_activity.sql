@@ -1,7 +1,6 @@
 -- Среднее количество успешных сессий в неделю для каждого ментора по месяцам
 
 WITH weekly_sessions AS (
-WITH weekly_sessions AS (
     SELECT
         DATE_TRUNC('week', session_date_time) AS week_start,
         mentor_id,
