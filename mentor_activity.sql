@@ -1,5 +1,4 @@
 -- Среднее количество успешных сессий в неделю для каждого ментора по месяцам
-
 WITH weekly_sessions AS (
     SELECT
         DATE_TRUNC('week', session_date_time) AS week_start,
@@ -19,8 +18,6 @@ ORDER BY month, mentor_id;
 
 -- Расширенный анализ:
 -- среднее количество успешных сессий в неделю и изменение относительно предыдущего месяца
-
-WITH weekly_sessions AS (
 WITH weekly_sessions AS (
     SELECT
         DATE_TRUNC('week', session_date_time) AS week,
